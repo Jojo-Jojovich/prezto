@@ -17,7 +17,11 @@ if (( $+functions[nvm_version] )); then
   version="${$(nvm_version)#v}"
 
 elif (( $+functions[nodenv] )); then
-  version="node-${$(nodenv version-name)#v}"
+	if [ -d "$HOME/.nodenv/plugins/nodenv-package-json-engine" ] && [ ! -z "$(nodenv package-json-engine)" ] && [[ "$(nodenv package-json-engine)" =~ "[0-9]+.[0-9]+.[0-9]" ]]; then
+  	version="node-${$(nodenv package-json-engine)#v}"
+  elif [[ ! -z "$(nodenv version-name)" ]]; then
+  	version="node-${$(nodenv version-name)#v}"
+  fi
 fi
 
 if [[ "$version" != (none|node-|) ]]; then
