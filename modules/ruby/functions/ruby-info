@@ -15,9 +15,9 @@ unset ruby_info
 typeset -gA ruby_info
 
 if (( $+commands[rvm-prompt] )); then
-  version="$(rvm-prompt)"
+  version="ruby-$(rvm-prompt)"
 elif (( $+commands[rbenv] )); then
-  version="$(rbenv version-name)"
+  version="ruby-$(rbenv version-name)"
 #elif (( $+commands[ruby] )); then
 #  version="${${$(ruby --version)[(w)1,(w)2]}/ /-}"
 fi
