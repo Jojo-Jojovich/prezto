@@ -23,7 +23,7 @@ elif (( $+commands[rbenv] )); then
 fi
 
 # Format version.
-if [[ -n "$version" ]]; then
+if [[ -n "$version" ]] && [[ -f "./.ruby-version" ]]; then
   zstyle -s ':prezto:module:ruby:info:version' format 'version_format'
   zformat -f version_formatted "$version_format" "v:$version"
   ruby_info[version]="$version_formatted"

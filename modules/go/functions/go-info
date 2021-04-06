@@ -1,0 +1,26 @@
+#
+# Exposes information about the Ruby environment via the $ruby_info associative
+# array.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+local version
+local version_format
+local version_formatted
+
+# Clean up previous $ruby_info.
+unset go_info
+typeset -gA go_info
+
+if (( $+commands[goenv] )); then
+  version="${$(goenv version-name)[(w)3]}"
+fi
+
+# Format version.
+if [[ -n "$version" ]] && [[ -f "./.go-version" ]]; then
+  zstyle -s ':prezto:module:go:info:version' format 'version_format'
+  zformat -f version_formatted "$version_format" "v:$version"
+  go_info[version]="$version_formatted"
+fi
